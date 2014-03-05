@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController id="vXZ-lx-hvc" customClass="CSCViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6DW-B6-eXA"/>
+                        <viewControllerLayoutGuide type="bottom" id="l4z-RN-DqY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bHL-8x-HIO">
+                                <rect key="frame" x="20" y="15" width="280" height="170"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QwZ-8k-Wd0">
+                                        <rect key="frame" x="0.0" y="9" width="280" height="162"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="vXZ-lx-hvc" id="qkp-v0-QXv"/>
+                                            <outlet property="delegate" destination="vXZ-lx-hvc" id="i9m-dH-LSX"/>
+                                        </connections>
+                                    </pickerView>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Opponent" borderStyle="roundedRect" placeholder="Opponent Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MCH-5S-rOD">
+                                        <rect key="frame" x="0.0" y="-2" width="280" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="vXZ-lx-hvc" id="Dp2-oY-cOw"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="280" id="5pg-lf-6Uy"/>
+                                    <constraint firstAttribute="height" constant="170" id="jY0-E0-Ew0"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oCs-Uy-F3G">
+                                <rect key="frame" x="20" y="230" width="280" height="170"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Abz-hq-orI">
+                                        <rect key="frame" x="0.0" y="8" width="280" height="162"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="vXZ-lx-hvc" id="ait-xP-8yD"/>
+                                            <outlet property="delegate" destination="vXZ-lx-hvc" id="GE5-6C-GZg"/>
+                                        </connections>
+                                    </pickerView>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="User" borderStyle="roundedRect" placeholder="User Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1wo-9b-Fi4">
+                                        <rect key="frame" x="0.0" y="-2" width="280" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="vXZ-lx-hvc" id="dKJ-Rl-BgV"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="170" id="Ofr-nf-zHn"/>
+                                    <constraint firstAttribute="width" constant="280" id="m38-Ep-V3B"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" alpha="0.79999999999999982" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fa6-ox-3t6">
+                                <rect key="frame" x="0.0" y="450" width="80" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="7Sd-CE-2Fg"/>
+                                </constraints>
+                                <state key="normal" title="Log">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="logButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="jfm-rN-BHo"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" alpha="0.79999999999999982" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r6P-ZY-nQQ">
+                                <rect key="frame" x="79" y="450" width="80" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="X1K-NT-X0M"/>
+                                </constraints>
+                                <color key="tintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Reset">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="resetButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="7gX-EJ-O4y"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Avd-uM-GTe">
+                                <rect key="frame" x="158" y="450" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="83" id="wbO-fR-Vfs"/>
+                                </constraints>
+                                <state key="normal" title="Random">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="randomButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Zkg-j7-nCR"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" alpha="0.79999999999999982" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bpS-IF-omc">
+                                <rect key="frame" x="240" y="450" width="80" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="Gfe-I1-UBM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                <state key="normal" title="Poison">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="poisonButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="uoZ-p4-a8l"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Avd-uM-GTe" firstAttribute="leading" secondItem="fa6-ox-3t6" secondAttribute="trailing" constant="78" id="0Wc-hl-0gz"/>
+                            <constraint firstItem="l4z-RN-DqY" firstAttribute="top" secondItem="Avd-uM-GTe" secondAttribute="bottom" id="41L-73-m7P"/>
+                            <constraint firstAttribute="centerX" secondItem="oCs-Uy-F3G" secondAttribute="centerX" id="5ps-wd-JPy"/>
+                            <constraint firstAttribute="centerY" secondItem="oCs-Uy-F3G" secondAttribute="centerY" constant="-75" id="DOg-Ss-hrL"/>
+                            <constraint firstAttribute="centerX" secondItem="bHL-8x-HIO" secondAttribute="centerX" id="G3f-OU-u5H"/>
+                            <constraint firstItem="r6P-ZY-nQQ" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="79" id="OWU-Va-acR"/>
+                            <constraint firstItem="l4z-RN-DqY" firstAttribute="top" secondItem="r6P-ZY-nQQ" secondAttribute="bottom" id="Po2-Ub-i66"/>
+                            <constraint firstItem="l4z-RN-DqY" firstAttribute="top" secondItem="fa6-ox-3t6" secondAttribute="bottom" id="U6V-Iq-JGR"/>
+                            <constraint firstItem="bpS-IF-omc" firstAttribute="leading" secondItem="r6P-ZY-nQQ" secondAttribute="trailing" constant="81" id="Xdg-vM-qJs"/>
+                            <constraint firstItem="l4z-RN-DqY" firstAttribute="top" secondItem="bpS-IF-omc" secondAttribute="bottom" id="hiY-iU-xk8"/>
+                            <constraint firstItem="fa6-ox-3t6" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="pXW-qa-gQV"/>
+                            <constraint firstAttribute="centerY" secondItem="bHL-8x-HIO" secondAttribute="centerY" constant="140" id="pwd-fN-Cc2"/>
+                            <constraint firstItem="l4z-RN-DqY" firstAttribute="top" secondItem="r6P-ZY-nQQ" secondAttribute="bottom" id="tzh-Dm-W08"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="mdN-xi-33w"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <connections>
+                        <outlet property="logButton" destination="fa6-ox-3t6" id="MfU-SM-A3Z"/>
+                        <outlet property="oppLifeTotal" destination="QwZ-8k-Wd0" id="VRF-lO-Dpc"/>
+                        <outlet property="oppName" destination="MCH-5S-rOD" id="D3Z-fE-juy"/>
+                        <outlet property="poisonButton" destination="bpS-IF-omc" id="61c-vP-Tlo"/>
+                        <outlet property="randomButton" destination="Avd-uM-GTe" id="mBA-1Z-Vvj"/>
+                        <outlet property="resetButton" destination="r6P-ZY-nQQ" id="Cg7-a3-W20"/>
+                        <outlet property="userLifeTotal" destination="Abz-hq-orI" id="Fag-fA-LnQ"/>
+                        <outlet property="userName" destination="1wo-9b-Fi4" id="Wbl-gk-Z8N"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="34" y="86"/>
+        </scene>
+    </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination"/>
+    </simulatedMetricsContainer>
+</document>
