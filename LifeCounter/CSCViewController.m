@@ -31,17 +31,11 @@
 @property NSArray *lifeRange;
 @property NSInteger poison;
 @property CGPoint position;
-@property NSInteger savedUserLifeTotal;
-@property NSInteger savedOppLifeTotal;
-@property NSInteger savedUserPoisonTotal;
-@property NSInteger savedOppPoisonTotal;
 
 - (IBAction)resetButton:(id)sender;
 - (IBAction)poisonButton:(id)sender;
 - (IBAction)logButton:(id)sender;
 - (IBAction)randomButton:(id)sender;
-
-- (void)outputLifeTotals:(NSTimer *)lifeLog;
 
 @end
 
@@ -145,12 +139,16 @@
         [self.view addSubview:self.logViewOpp];
     }
     
-    // add text to subviews
+    // add names to subviews
     self.logUserName.text = [self.logUserName.text stringByAppendingFormat:@"%@", self.userName.text];
     self.logOppName.text = [self.logOppName.text stringByAppendingFormat:@"%@", self.oppName.text];
     
+    // add starting text
     self.logViewUser.text = @"_________________\n";
+    self.logViewUser.text = [self.logViewUser.text stringByAppendingFormat:@"\n%ld", (long)[self.userLifeTotal selectedRowInComponent:0]];
+    
     self.logViewOpp.text = @"_________________\n";
+    self.logViewOpp.text = [self.logViewOpp.text stringByAppendingFormat:@"\n%ld", (long)[self.oppLifeTotal selectedRowInComponent:0]];
     
     // make it so players cannot change the life totals
     self.logViewUser.editable = NO;
@@ -166,12 +164,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    // every time to timer is fired, output the life totals to the logview
-    __unused NSTimer *lifeLog = [NSTimer scheduledTimerWithTimeInterval:1
-                                                                 target:self
-                                                               selector:@selector(outputLifeTotals:)
-                                                               userInfo:nil
-                                                                repeats:YES];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -203,12 +196,24 @@
 // set delagates, made unique view for asthetic reasons
 -(UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
 {
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, pickerView.frame.size.width, 40)];
-    label.backgroundColor = [UIColor whiteColor];
-    label.textColor = [UIColor blackColor];
-    label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:28];
-    label.text = [NSString stringWithFormat:@"                %ld", (long)row];
-    return label;
+    // Changes the custom frame width based upon the number of row components
+    if (self.poison == 0) {
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, pickerView.frame.size.width, 34)];
+        label.backgroundColor = [UIColor whiteColor];
+        label.textColor = [UIColor blackColor];
+        label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:28];
+        label.text = [NSString stringWithFormat:@"                %ld", (long)row];
+        return label;
+    } else {
+        int frameWidth = pickerView.frame.size.width / 2;
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frameWidth, 34)];
+        label.backgroundColor = [UIColor whiteColor];
+        label.textColor = [UIColor blackColor];
+        label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:24];
+        label.text = [NSString stringWithFormat:@"         %ld", (long)row];
+        return label;
+    }
 }
 
 
@@ -224,6 +229,38 @@
     
     alert.tag = 1;
     [alert show];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    // enable editing
+    self.logViewUser.editable = YES;
+    self.logViewOpp.editable = YES;
+    
+    // output the strings if the values have changed
+    if (self.poison == 0) {
+            
+            self.logViewUser.text = [self.logViewUser.text stringByAppendingFormat:@"\n%ld", (long)[self.userLifeTotal selectedRowInComponent:0]];
+            
+            self.logViewOpp.text = [self.logViewOpp.text stringByAppendingFormat:@"\n%ld", (long)[self.oppLifeTotal selectedRowInComponent:0]];
+    }
+    
+    // output poison if its been activated and poison values have changed
+    if (self.poison == 1) {
+            
+            self.logViewUser.text = [self.logViewUser.text stringByAppendingFormat:@"\n%ld", (long)[self.userLifeTotal selectedRowInComponent:0]];
+            
+            self.logViewUser.text = [self.logViewUser.text stringByAppendingFormat:@"               %ld", (long)[self.userLifeTotal selectedRowInComponent:1]];
+
+            
+            self.logViewOpp.text = [self.logViewOpp.text stringByAppendingFormat:@"\n%ld", (long)[self.oppLifeTotal selectedRowInComponent:0]];
+            
+            self.logViewOpp.text = [self.logViewOpp.text stringByAppendingFormat:@"             %ld", (long)[self.oppLifeTotal selectedRowInComponent:1]];
+    }
+    
+    // disable editing
+    self.logViewUser.editable = NO;
+    self.logViewOpp.editable = NO;
 }
 
 // after alert is dismissed, fires if OK was chosen.  Tagged from the alert UIAlertView
@@ -242,36 +279,15 @@
             [self.oppLifeTotal selectRow:20 inComponent:0 animated:YES];
             [self.userLifeTotal selectRow:20 inComponent:0 animated:YES];
             
-            // determine the length of each life total column
-            NSUInteger userLength = [[self.logViewUser.text componentsSeparatedByString:@"\n"] count];
-            NSUInteger oppLength = [[self.logViewOpp.text componentsSeparatedByString:@"\n"] count];
-
-            // equalize the length of each life total colummn
-            if (userLength > oppLength) {
-                while (userLength >oppLength) {
-                    self.logViewOpp.text = [self.logViewOpp.text stringByAppendingString:@"\n."];
-                    oppLength = [[self.logViewOpp.text componentsSeparatedByString:@"\n"] count];
-                }
-            } else if (oppLength > userLength) {
-                while (oppLength > userLength) {
-                    self.logViewUser.text = [self.logViewUser.text stringByAppendingString:@"\n."];
-                    userLength = [[self.logViewUser.text componentsSeparatedByString:@"\n"] count];
-                }
-            }
-            
             self.logViewUser.text = [self.logViewUser.text stringByAppendingString:@"\n_________________\n"];
             
-            // output the starting life total if it didnt change during the game
-            if (self.savedUserLifeTotal == 20) {
-                self.logViewUser.text = [self.logViewUser.text stringByAppendingFormat:@"\n%ld", (long)[self.userLifeTotal selectedRowInComponent:0]];
-            }
+            // output the starting life total
+            self.logViewUser.text = [self.logViewUser.text stringByAppendingFormat:@"\n%ld", (long)[self.userLifeTotal selectedRowInComponent:0]];
             
             self.logViewOpp.text = [self.logViewOpp.text stringByAppendingString:@"\n_________________\n"];
             
-            // output the starting life total if it didnt change during the game
-            if (self.savedOppLifeTotal == 20) {
-                self.logViewOpp.text = [self.logViewOpp.text stringByAppendingFormat:@"\n%ld", (long)[self.oppLifeTotal selectedRowInComponent:0]];
-            }
+            // output the starting life total
+            self.logViewOpp.text = [self.logViewOpp.text stringByAppendingFormat:@"\n%ld", (long)[self.oppLifeTotal selectedRowInComponent:0]];
             
             // revert button color
             [self.poisonButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -333,76 +349,13 @@
     }
 }
 
-// outputs the lifetotals of the players to the subview
-- (void)outputLifeTotals:(NSTimer *)lifeLog
-{
-    // enable editing
-    self.logViewUser.editable = YES;
-    self.logViewOpp.editable = YES;
-    
-    // output the strings if the values have changed
-    if (self.poison == 0) {
-       
-        if ([self.userLifeTotal selectedRowInComponent:0] != self.savedUserLifeTotal) {
-            
-            self.logViewUser.text = [self.logViewUser.text stringByAppendingFormat:@"\n%ld", (long)[self.userLifeTotal selectedRowInComponent:0]];
-        
-            // create a persistent value for the userLifeTotal and oppLifeTotal in comp. 0 to check against
-            self.savedUserLifeTotal = [self.userLifeTotal selectedRowInComponent:0];
-        }
-        
-        if ([self.oppLifeTotal selectedRowInComponent:0] != self.savedOppLifeTotal) {
-            
-            self.logViewOpp.text = [self.logViewOpp.text stringByAppendingFormat:@"\n%ld", (long)[self.oppLifeTotal selectedRowInComponent:0]];
-            
-            self.savedOppLifeTotal = [self.oppLifeTotal selectedRowInComponent:0];
-        }
-    }
-    
-    // output poison if its been activated and poison values have changed
-    if (self.poison == 1) {
-        
-        // Outputs life total and poison total  for user
-        if ([self.userLifeTotal selectedRowInComponent:1] != self.savedUserPoisonTotal ||
-            [self.userLifeTotal selectedRowInComponent:0] != self.savedUserLifeTotal) {
-            
-            self.logViewUser.text = [self.logViewUser.text stringByAppendingFormat:@"\n%ld", (long)[self.userLifeTotal selectedRowInComponent:0]];
-            
-            self.logViewUser.text = [self.logViewUser.text stringByAppendingFormat:@"               %ld", (long)[self.userLifeTotal selectedRowInComponent:1]];
-        
-            // create a persistant value for the userLifeTotal and oppLifeTotal in comp. 1 to check against
-            self.savedUserLifeTotal = [self.userLifeTotal selectedRowInComponent:0];
-        
-            self.savedUserPoisonTotal = [self.userLifeTotal selectedRowInComponent:1];
-        }
-        
-        // Outputs life total and poison total for opponent
-        if ([self.oppLifeTotal selectedRowInComponent:0] != self.savedOppLifeTotal ||
-            [self.oppLifeTotal selectedRowInComponent:1] != self.savedOppPoisonTotal) {
-            
-            self.logViewOpp.text = [self.logViewOpp.text stringByAppendingFormat:@"\n%ld", (long)[self.oppLifeTotal selectedRowInComponent:0]];
-            
-            self.logViewOpp.text = [self.logViewOpp.text stringByAppendingFormat:@"             %ld", (long)[self.oppLifeTotal selectedRowInComponent:1]];
-            
-            self.savedOppLifeTotal = [self.oppLifeTotal selectedRowInComponent:0];
-            
-            self.savedOppPoisonTotal = [self.oppLifeTotal selectedRowInComponent:1];
-        }
-    }
-    
-    // disable editing
-    self.logViewUser.editable = NO;
-    self.logViewOpp.editable = NO;
-    
-}
-
 // For rolling random numbers
 - (IBAction)randomButton:(id)sender
 {
     UIAlertView *random = [[UIAlertView alloc] initWithTitle:@"Choose an option"
                                                     message:Nil
                                                    delegate:self
-                                          cancelButtonTitle:@"Cancel"
+                                          cancelButtonTitle:nil
                                           otherButtonTitles:@"Coin flip", @"D 20", nil];
     random.tag = 2;
     [random show];
@@ -415,7 +368,7 @@
     if (alertView.tag == 2) {
     
         // Displays random 0 or 1, labeled Heads or Tails
-        if (buttonIndex == 1) {
+        if (buttonIndex == 0) {
             
             NSString *coinResult = Nil;
             int coin = arc4random() % 2;
@@ -434,7 +387,7 @@
             [coinFlip show];
         
         // Displays a random number between 1 and 20
-        } else if (buttonIndex == 2) {
+        } else if (buttonIndex == 1) {
             
             int roll = arc4random() % 20;
             roll += 1;
